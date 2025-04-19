@@ -1,21 +1,16 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" @class(['dark' => ($appearance ?? 'system') == 'light'])>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="light">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        {{-- Inline script to detect system dark mode preference and apply it immediately --}}
+        {{-- Force light mode --}}
         <script>
             (function() {
-                const appearance = '{{ $appearance ?? "system" }}';
-
-                if (appearance === 'system') {
-                    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-
-                    if (prefersDark) {
-                        document.documentElement.classList.add('dark');
-                    }
-                }
+                // Remove dark class if it exists
+                document.documentElement.classList.remove('dark');
+                // Add light class
+                document.documentElement.classList.add('light');
             })();
         </script>
 
@@ -25,6 +20,7 @@
                 background-color: oklch(1 0 0);
             }
 
+            /* Keep the dark mode style for reference, but it won't be used */
             html.dark {
                 background-color: oklch(0.145 0 0);
             }
